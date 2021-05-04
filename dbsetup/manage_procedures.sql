@@ -49,3 +49,13 @@ AS BEGIN
 END
 
 GO 
+
+-- Procedura usuwająca pracownika po poziomie (hierarchyid)
+CREATE PROCEDURE RemoveEmployeeByLevel
+@level hierarchyid
+AS BEGIN
+    DELETE FROM Employee
+    WHERE level=@level 
+END
+
+GO
