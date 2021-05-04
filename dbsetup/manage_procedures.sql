@@ -1,6 +1,7 @@
-use cmapiDB
-go  
+USE cmapiDB
+GO  
 
+-- Główna tabela Employee zawierająca pracowników
 CREATE TABLE Employee (
         id int NOT NULL UNIQUE,
 		level hierarchyid NOT NULL UNIQUE,
@@ -10,9 +11,21 @@ CREATE TABLE Employee (
 		salary int NOT NULL
 	);
 
+-- Procedura dodająca nowego pracownika
 CREATE PROCEDURE AddEmployee 
 @level as varchar(1000), @firstName as varchar(1000), @lastName as varchar(1000), @position as varchar(1000), @salary as Int
 AS BEGIN
     INSERT Employee VALUES ( hierarchyid::Parse(@level), @firstName, @lastName, @position, @salary );
 END
-go
+
+GO 
+
+-- Procedura usuwająca pracownika
+CREATE PROCEDURE RemoveEmployeeById 
+@id as Int
+AS BEGIN
+    DELETE FROM Employee 
+    WHERE id=@id
+END
+
+GO 
