@@ -20,12 +20,32 @@ END
 
 GO 
 
--- Procedura usuwająca pracownika
+-- Procedura usuwająca pracownika po ID
 CREATE PROCEDURE RemoveEmployeeById 
 @id as Int
 AS BEGIN
     DELETE FROM Employee 
     WHERE id=@id
+END
+
+GO 
+
+-- Procedura usuwająca pracownika po imieniu
+CREATE PROCEDURE RemoveEmployeeByFirstName
+@firstName as varchar(1000)
+AS BEGIN
+    DELETE FROM Employee 
+    WHERE firstName=@firstName
+END
+
+GO 
+
+-- Procedura usuwająca pracownika po nazwisku
+CREATE PROCEDURE RemoveEmployeeByLastName
+@lastName as varchar(1000)
+AS BEGIN
+    DELETE FROM Employee 
+    WHERE lastName=@lastName
 END
 
 GO 
