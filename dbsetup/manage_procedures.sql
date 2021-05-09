@@ -117,3 +117,11 @@ AS BEGIN
 END
 
 GO
+
+-- Procedura zwracająca wszystkich pracowników
+CREATE PROCEDURE GetAllEmployees
+AS BEGIN
+    SELECT level as [level], firstName, lastName, position, salary FROM Employee
+END
+
+GO
