@@ -26,6 +26,18 @@ namespace companyApi{
         public void print(){
             Console.WriteLine($"#{id}: {level} - {firstName} {lastName} - {position} - {salary}");
         }
+
+        // Klasa opisująca firmę - zawierająca metody z API
+        internal class Company {
+            public SqlConnection apiConnection = null;
+
+            public Company(){
+                string connection = @"Data Source=XXX; Initial Catalog=XXX; User ID=XXX; Password=XXX";
+
+                apiConnection = new SqlConnection(connection);
+                apiConnection.Open();
+            }   
+        }
     }
 
 
