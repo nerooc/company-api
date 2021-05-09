@@ -125,3 +125,21 @@ AS BEGIN
 END
 
 GO
+
+-- Procedura największą wypłatę
+CREATE PROCEDURE GetMaxSalary
+AS BEGIN
+    SELECT MAX(Salary) as Salary 
+    FROM GetAllEmployees
+END
+
+GO
+
+-- Procedura największą wypłatę
+CREATE PROCEDURE GetAverageSalary
+AS BEGIN
+    SELECT AVG(Salary) as Salary 
+    FROM GetAllEmployees
+END
+
+GO
