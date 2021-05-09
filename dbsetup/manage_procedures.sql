@@ -107,3 +107,13 @@ AS BEGIN
 END
 
 GO
+
+-- Procedura zwracająca pracownika wraz z podwładnymi
+CREATE PROCEDURE GetEmployeeWithSubordinates
+@level as level
+AS BEGIN
+    SELECT level as [level], firstName, lastName, position, salary FROM Employee
+    WHERE level.IsDecendantOf(@Leve) = 1
+END
+
+GO
