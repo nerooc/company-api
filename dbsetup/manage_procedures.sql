@@ -59,3 +59,11 @@ AS BEGIN
 END
 
 GO
+
+-- Procedura usuwająca wszystkich pracowników
+CREATE PROCEDURE RemoveAllEmployees
+AS BEGIN
+    DELETE FROM Employee
+END
+
+GO
