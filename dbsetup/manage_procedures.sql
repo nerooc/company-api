@@ -72,7 +72,7 @@ GO
 CREATE PROCEDURE GetEmployeeById
 @id as Int
 AS BEGIN
-    SELECT id as [id], firstName, lastName, position, salary FROM Employee
+    SELECT id as [id], level, firstName, lastName, position, salary FROM Employee
     WHERE id=@id
 END
 
@@ -84,6 +84,16 @@ CREATE PROCEDURE GetEmployeeByLevel
 AS BEGIN
     SELECT level as [level], firstName, lastName, position, salary FROM Employee
     WHERE level=@level
+END
+
+GO
+
+-- Procedura zwracająca pracownika po imieniu
+CREATE PROCEDURE GetEmployeeByFirstName
+@firstName as firstName
+AS BEGIN
+    SELECT level, firstName as [firstName], lastName, position, salary FROM Employee
+    WHERE firstName=@firstName
 END
 
 GO
