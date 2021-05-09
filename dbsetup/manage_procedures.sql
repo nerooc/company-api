@@ -97,3 +97,13 @@ AS BEGIN
 END
 
 GO
+
+-- Procedura zwracająca pracownika po nazwisku
+CREATE PROCEDURE GetEmployeeByLastName
+@lastName as lastName
+AS BEGIN
+    SELECT level, firstName, lastName as [lastName], position, salary FROM Employee
+    WHERE lastName=@lastName
+END
+
+GO
