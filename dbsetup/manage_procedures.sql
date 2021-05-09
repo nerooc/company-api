@@ -67,3 +67,13 @@ AS BEGIN
 END
 
 GO
+
+-- Procedura zwracająca pracownika po ID
+CREATE PROCEDURE GetEmployeeById
+@id as Int
+AS BEGIN
+    SELECT id as [id], firstName, lastName, position, salary FROM Employee
+    WHERE id=@id
+END
+
+GO
