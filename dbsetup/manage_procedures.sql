@@ -77,3 +77,13 @@ AS BEGIN
 END
 
 GO
+
+-- Procedura zwracająca pracownika po poziomie (hierarchyid)
+CREATE PROCEDURE GetEmployeeByLevel
+@level as level
+AS BEGIN
+    SELECT level as [level], firstName, lastName, position, salary FROM Employee
+    WHERE level=@level
+END
+
+GO
