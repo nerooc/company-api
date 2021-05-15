@@ -100,6 +100,99 @@ namespace companyApi{
                 
                 removeCommand.ExecuteNonQuery();
             }
+
+            internal Employee getEmployeeById(int id){
+                SqlCommand getCommand = new SqlCommand("GetEmployeeById", apiConnection){
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                getCommand.Parameters.Add("@id", SqlDbType.Int).Value = id;
+
+                using SqlDataReader result = getCommand.ExecuteReader();
+                result.Read();
+
+                Employee employee = new Employee((int)result["id"],(SqlHierarchyId)result["level"], (string)result["firstName"], (string)result["lastName"], (string)result["position"], (int)result["salary"]);
+
+                return employee;
+            }
+
+            internal Employee getEmployeeByLevel(string level){
+                SqlCommand getCommand = new SqlCommand("GetEmployeeByLevel", apiConnection){
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                getCommand.Parameters.Add("@level", SqlDbType.VarChar).Value = level;
+
+                using SqlDataReader result = getCommand.ExecuteReader();
+                result.Read();
+
+                Employee employee = new Employee((int)result["id"],(SqlHierarchyId)result["level"], (string)result["firstName"], (string)result["lastName"], (string)result["position"], (int)result["salary"]);
+
+                return employee;
+            }
+
+            internal Employee getEmployeeByFirstName(string firstName){
+                SqlCommand getCommand = new SqlCommand("GetEmployeeByFirstName", apiConnection){
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                getCommand.Parameters.Add("@firstName", SqlDbType.VarChar).Value = firstName;
+
+                using SqlDataReader result = getCommand.ExecuteReader();
+                result.Read();
+
+                Employee employee = new Employee((int)result["id"],(SqlHierarchyId)result["level"], (string)result["firstName"], (string)result["lastName"], (string)result["position"], (int)result["salary"]);
+
+                return employee;
+            }
+
+            internal Employee getEmployeeByFirstName(string lastName){
+                SqlCommand getCommand = new SqlCommand("GetEmployeeByLastName", apiConnection){
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                getCommand.Parameters.Add("@lastName", SqlDbType.VarChar).Value = lastName;
+
+                using SqlDataReader result = getCommand.ExecuteReader();
+                result.Read();
+
+                Employee employee = new Employee((int)result["id"],(SqlHierarchyId)result["level"], (string)result["firstName"], (string)result["lastName"], (string)result["position"], (int)result["salary"]);
+
+                return employee;
+            }
+
+            internal List<Employee> getEmployeeWithChildren(string level){
+                SqlCommand getCommand = new SqlCommand("GetEmployeeWithSubordinates", apiConnection){
+                    CommandType = CommandType.StoredProcedure
+                };
+                
+                getCommand.Parameters.Add("@level", SqlDbType.VarChar).Value = level;
+
+                using SqlDataReader result = getCommand.ExecuteReader();
+                List<Employee> employees = new List<Employee>();
+
+                while (result.Read()){
+                    employees.Add(new Employee((int)result["id"],(SqlHierarchyId)result["level"], (string)result["firstName"], (string)result["lastName"], (string)result["position"], (int)result["salary"]));
+                }
+
+                return employees;
+            }
+
+            internal List<Employee> getAllEmployees(){
+                SqlCommand getCommand = new SqlCommand("GetAllEmployees", apiConnection){
+                    CommandType = CommandType.StoredProcedure
+                };
+                
+                using SqlDataReader result = getCommand.ExecuteReader();
+                List<Employee> employees = new List<Employee>();
+
+                while (result.Read()){
+                    employees.Add(new Employee((int)result["id"],(SqlHierarchyId)result["level"], (string)result["firstName"], (string)result["lastName"], (string)result["position"], (int)result["salary"]));
+                }
+
+                return employees;
+            }
+
         }
     }
 
