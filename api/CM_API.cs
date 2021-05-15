@@ -193,6 +193,29 @@ namespace companyApi{
                 return employees;
             }
 
+            internal int getMaxSalary(){
+                SqlCommand command = new SqlCommand("GetMaxSalary", apiConnection){
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                using SqlDataReader result = command.ExecuteReader();
+                result.Read();
+
+                int salary = (int)result["salary"];
+                return salary;
+            }
+
+            internal int getAverageSalary(){
+                SqlCommand command = new SqlCommand("GetAverageSalary", apiConnection){
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                using SqlDataReader result = command.ExecuteReader();
+                result.Read();
+
+                int salary = (int)result["salary"];
+                return salary;
+            }
         }
     }
 
