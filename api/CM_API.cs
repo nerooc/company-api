@@ -13,6 +13,7 @@ namespace companyApi{
         public string lastName;
         public string position;
         public int salary;
+        
         // Konstruktor klasy Employee
         public Employee(int id, SqlHierarchyId level, string firstName, string lastName, string position, int salary){
             this.id = id;
@@ -218,6 +219,4 @@ namespace companyApi{
             }
         }
     }
-
-
 }
