@@ -10,6 +10,10 @@ namespace CompanyApi{
             company = new Company();
         }
 
+        public void addExampleData(){
+            
+        }
+
         public void addEmployeeProcess(){
             string level;
             string firstName;
@@ -131,6 +135,5 @@ namespace CompanyApi{
         public void getAverageSalaryProcess(){
             company.getAverageSalary().Print();
         }
-
     }
 }
