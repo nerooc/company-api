@@ -86,9 +86,6 @@ namespace CompanyApi{
                 Console.ReadKey();
 
             }
-
         }
-
-
     }
 }

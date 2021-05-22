@@ -3,7 +3,7 @@ GO
 
 -- Główna tabela Employee zawierająca pracowników
 CREATE TABLE Employee (
-        id int NOT NULL UNIQUE,
+        id int NOT NULL UNIQUE IDENTITY,
 		level hierarchyid NOT NULL UNIQUE,
 		firstName nvarchar(30) NOT NULL,
         lastName nvarchar(30) NOT NULL,
@@ -80,7 +80,7 @@ GO
 
 -- Procedura zwracająca pracownika po poziomie (hierarchyid)
 CREATE PROCEDURE GetEmployeeByLevel
-@level as level
+@level as hierarchyid
 AS BEGIN
     SELECT level as [level], firstName, lastName, position, salary FROM Employee
     WHERE level=@level
@@ -90,7 +90,7 @@ GO
 
 -- Procedura zwracająca pracownika po imieniu
 CREATE PROCEDURE GetEmployeeByFirstName
-@firstName as firstName
+@firstName as varchar(1000)
 AS BEGIN
     SELECT level, firstName as [firstName], lastName, position, salary FROM Employee
     WHERE firstName=@firstName
@@ -100,7 +100,7 @@ GO
 
 -- Procedura zwracająca pracownika po nazwisku
 CREATE PROCEDURE GetEmployeeByLastName
-@lastName as lastName
+@lastName as varchar(1000)
 AS BEGIN
     SELECT level, firstName, lastName as [lastName], position, salary FROM Employee
     WHERE lastName=@lastName
@@ -110,10 +110,10 @@ GO
 
 -- Procedura zwracająca pracownika wraz z podwładnymi
 CREATE PROCEDURE GetEmployeeWithSubordinates
-@level as level
+@level as hierarchyid
 AS BEGIN
     SELECT level as [level], firstName, lastName, position, salary FROM Employee
-    WHERE level.IsDecendantOf(@Leve) = 1
+    WHERE level.IsDescendantOf(@level) = 1
 END
 
 GO
@@ -129,7 +129,7 @@ GO
 -- Procedura największą wypłatę
 CREATE PROCEDURE GetMaxSalary
 AS BEGIN
-    SELECT MAX(Salary) as Salary 
+    SELECT MAX(salary) as salary 
     FROM GetAllEmployees
 END
 
@@ -138,7 +138,7 @@ GO
 -- Procedura największą wypłatę
 CREATE PROCEDURE GetAverageSalary
 AS BEGIN
-    SELECT AVG(Salary) as Salary 
+    SELECT AVG(salary) as salary 
     FROM GetAllEmployees
 END
 
