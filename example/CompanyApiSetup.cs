@@ -1,20 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using CompanyApi;
 
-namespace CompanyApi{
-    class CompanyApiImplementation{
+namespace CompanyApiSetup
+{
+    class CompanyApiImplementation
+    {
         private Company company;
-       
-        public CompanyApiImplementation(){
+
+        public CompanyApiImplementation()
+        {
             company = new Company();
         }
 
-        public void addExampleData(){
-            
+        public void addExampleData()
+        {
+
         }
 
-        public void addEmployeeProcess(){
+        public void addEmployeeProcess()
+        {
             string level;
             string firstName;
             string lastName;
@@ -34,21 +40,23 @@ namespace CompanyApi{
             position = Console.ReadLine();
 
             Console.WriteLine("Provide the amount of renumeration of the employee:");
-            Salary = Convert.ToInt32(Console.ReadLine());
+            salary = Convert.ToInt32(Console.ReadLine());
 
-            company.AddEmployee(level, firstName, lastName, position, salary);
+            company.addEmployee(level, firstName, lastName, position, salary);
         }
 
-        public void removeEmployeeByIdProcess(){
+        public void removeEmployeeByIdProcess()
+        {
             int id;
-            
+
             Console.WriteLine("Provide the id of the employee:");
-            id = Console.ReadLine();
+            id = Convert.ToInt32(Console.ReadLine());
 
             company.removeEmployeeById(id);
         }
 
-        public void removeEmployeeByFirstNameProcess(){
+        public void removeEmployeeByFirstNameProcess()
+        {
             string firstName;
 
             Console.Write("Provide the first name of the employee:");
@@ -57,7 +65,8 @@ namespace CompanyApi{
             company.removeEmployeeByFirstName(firstName);
         }
 
-        public void removeEmployeeByLastNameProcess(){
+        public void removeEmployeeByLastNameProcess()
+        {
             string lastName;
 
             Console.Write("Provide the last name of the employee:");
@@ -66,7 +75,8 @@ namespace CompanyApi{
             company.removeEmployeeByLastName(lastName);
         }
 
-        public void removeEmployeeByLevelProcess(){
+        public void removeEmployeeByLevelProcess()
+        {
             string level;
 
             Console.Write("Provide the level of the employee:");
@@ -75,65 +85,74 @@ namespace CompanyApi{
             company.removeEmployeeByLevel(level);
         }
 
-        public void removeAllEmployeesProcess(){
+        public void removeAllEmployeesProcess()
+        {
             company.removeAllEmployees();
         }
 
-        public void getEmployeeByIdProcess(){
+        public void getEmployeeByIdProcess()
+        {
             int id;
-            
-            Console.WriteLine("Provide the id of the employee:");
-            id = Console.ReadLine();
 
-            company.getEmployeeById(id).Print();
+            Console.WriteLine("Provide the id of the employee:");
+            id = Convert.ToInt32(Console.ReadLine());
+
+            company.getEmployeeById(id).print();
         }
 
-        public void getEmployeeByLevelProcess(){
+        public void getEmployeeByLevelProcess()
+        {
             string level;
 
             Console.Write("Provide the level of the employee:");
             level = Console.ReadLine();
 
-            company.getEmployeeByLevel(level).Print();
+            company.getEmployeeByLevel(level).print();
         }
 
-        public void getEmployeeByFirstNameProcess(){
+        public void getEmployeeByFirstNameProcess()
+        {
             string firstName;
 
             Console.Write("Provide the first name of the employee:");
             firstName = Console.ReadLine();
 
-            company.getEmployeeByFirstName(firstName).Print();
+            company.getEmployeeByFirstName(firstName).print();
         }
 
-        public void getEmployeeByLastNameProcess(){
+        public void getEmployeeByLastNameProcess()
+        {
             string lastName;
 
             Console.Write("Provide the last name of the employee:");
             lastName = Console.ReadLine();
 
-            company.getEmployeeByLastName(lastName).Print();
+            company.getEmployeeByLastName(lastName).print();
         }
 
-        public void getEmployeeWithSubordinatesProcess(){
+        public void getEmployeeWithSubordinatesProcess()
+        {
             string level;
 
             Console.Write("Provide the level of the parent employee:");
             level = Console.ReadLine();
 
-            company.getEmployeeWithSubordinates(level).Print();
+            company.getEmployeeWithSubordinates(level).ForEach(emp => emp.print());
         }
 
-        public void getAllEmployeesProcess(){
-            company.getAllEmployees().ForEach(emp => emp.Print());
-        }
-        
-        public void getMaxSalaryProcess(){
-            company.getMaxSalary().Print();
+        public void getAllEmployeesProcess()
+        {
+            company.getAllEmployees().ForEach(emp => emp.print());
         }
 
-        public void getAverageSalaryProcess(){
-            company.getAverageSalary().Print();
+        public void getMaxSalaryProcess()
+        {
+            Console.WriteLine(company.getMaxSalary());
+        }
+
+        public void getAverageSalaryProcess()
+        {
+            Console.WriteLine(company.getAverageSalary());
         }
     }
 }

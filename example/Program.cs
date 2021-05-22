@@ -3,15 +3,20 @@ using System.Collections.Generic;
 using System.Data;
 using System.Runtime.InteropServices;
 using System.Text;
+using CompanyApiSetup;
 
-namespace CompanyApi{
-    class ConsoleProgram{
-        static void Main(string[] args){
+namespace ConsoleApp
+{
+    class ConsoleProgram
+    {
+        static void Main(string[] args)
+        {
             CompanyApiImplementation api = new CompanyApiImplementation();
 
             int chosenCommand;
-            
-            while(true){
+
+            while (true)
+            {
                 Console.Clear();
                 Console.WriteLine("======== Company API console application. ======\nAvailable commands:\n");
                 Console.WriteLine(" 1. Add new employee");
@@ -29,12 +34,13 @@ namespace CompanyApi{
                 Console.WriteLine(" 13. Get max salary");
                 Console.WriteLine(" 14. Get average salary");
                 Console.WriteLine(" 15. Add example data");
-                
-                Console.WriteLine("Choose command's number:");
-                command = Convert.ToInt32(Console.ReadLine());
-                Console.WriteLine("The command you have chosen: " + command);
 
-                switch(command){
+                Console.WriteLine("Choose command's number:");
+                chosenCommand = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("The command you have chosen: " + chosenCommand);
+
+                switch (chosenCommand)
+                {
                     case 1:
                         api.addEmployeeProcess();
                         break;

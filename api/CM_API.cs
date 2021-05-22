@@ -1,21 +1,24 @@
-﻿using Microsoft.SqlServer.Types;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using Microsoft.SqlServer.Types;
+using System.Collections.Generic;
 
-namespace companyApi{
+namespace CompanyApi
+{
     // Klasa Employee
-    internal class Employee{
+    internal class Employee
+    {
         public int id;
         public SqlHierarchyId level;
         public string firstName;
         public string lastName;
         public string position;
         public int salary;
-        
+
         // Konstruktor klasy Employee
-        public Employee(int id, SqlHierarchyId level, string firstName, string lastName, string position, int salary){
+        public Employee(int id, SqlHierarchyId level, string firstName, string lastName, string position, int salary)
+        {
             this.id = id;
             this.level = level;
             this.firstName = firstName;
@@ -24,199 +27,243 @@ namespace companyApi{
             this.salary = salary;
         }
 
-        public void print(){
-            Console.WriteLine($"#{id}: {level} - {firstName} {lastName} - {position} - {salary}");
+        public void print()
+        {
+            Console.WriteLine("#{1}: {2} - {3} {4} - {5} - {6}", this.id, this.level, this.firstName, this.lastName, this.position, this.salary);
+        }
+    }
+    // Klasa opisująca firmę - zawierająca metody z API
+    class Company
+    {
+        public SqlConnection apiConnection = null;
+
+        public Company()
+        {
+            string conString = @"Data Source=mssqlserver;Initial Catalog=cmapiDB;Integrated Security=True";
+            apiConnection = new SqlConnection(conString);
+            apiConnection.Open();
         }
 
-        // Klasa opisująca firmę - zawierająca metody z API
-        internal class Company {
-            public SqlConnection apiConnection = null;
+        public void addEmployee(string level, string firstName, string lastName, string position, int salary)
+        {
+            SqlCommand addCommand = new SqlCommand("AddEmployee", apiConnection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
 
-            public Company(){
-                string connection = @"Data Source=XXX; Initial Catalog=XXX; User ID=XXX; Password=XXX";
+            addCommand.Parameters.Add("@level", SqlDbType.VarChar).Value = level;
+            addCommand.Parameters.Add("@firstName", SqlDbType.VarChar).Value = firstName;
+            addCommand.Parameters.Add("@lastName", SqlDbType.VarChar).Value = lastName;
+            addCommand.Parameters.Add("@position", SqlDbType.VarChar).Value = position;
+            addCommand.Parameters.Add("@salary", SqlDbType.Int).Value = salary;
 
-                apiConnection = new SqlConnection(connection);
-                apiConnection.Open();
-            }   
+            addCommand.ExecuteNonQuery();
+        }
 
-            public void addEmployee(int id, string level, string firstName, string lastName, string position, int salary){
-                SqlCommand addCommand = new SqlCommand("AddEmployee", apiConnection){
-                    CommandType = CommandType.StoredProcedure
-                };
+        public void removeEmployeeById(int id)
+        {
+            SqlCommand removeCommand = new SqlCommand("RemoveEmployeeById", apiConnection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
 
-                addCommand.Parameters.Add("@id", SqlDbType.Int).Value = id;
-                addCommand.Parameters.Add("@level", SqlDbType.VarChar).Value = level;
-                addCommand.Parameters.Add("@firstName", SqlDbType.VarChar).Value = firstName;
-                addCommand.Parameters.Add("@lastName", SqlDbType.VarChar).Value = lastName;
-                addCommand.Parameters.Add("@position", SqlDbType.VarChar).Value = position;
-                addCommand.Parameters.Add("@salary", SqlDbType.Int).Value = salary;
+            removeCommand.Parameters.Add("@id", SqlDbType.Int).Value = id;
 
-                addCommand.ExecuteNonQuery();
-            }
+            removeCommand.ExecuteNonQuery();
+        }
 
-            public void removeEmployeeById(int id){
-                SqlCommand removeCommand = new SqlCommand("RemoveEmployeeById", apiConnection){
-                    CommandType = CommandType.StoredProcedure
-                };
-                
-                removeCommand.Parameters.Add("@id", SqlDbType.Int).Value = id;
+        public void removeEmployeeByFirstName(string firstName)
+        {
+            SqlCommand removeCommand = new SqlCommand("RemoveEmployeeByFirstName", apiConnection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
 
-                removeCommand.ExecuteNonQuery();
-            }
+            removeCommand.Parameters.Add("@firstName", SqlDbType.VarChar).Value = firstName;
 
-            public void removeEmployeeByFirstName(string firstName){
-                SqlCommand removeCommand = new SqlCommand("RemoveEmployeeByFirstName", apiConnection){
-                    CommandType = CommandType.StoredProcedure
-                };
-                
-                removeCommand.Parameters.Add("@firstName", SqlDbType.VarChar).Value = firstName;
+            removeCommand.ExecuteNonQuery();
+        }
 
-                removeCommand.ExecuteNonQuery();
-            }
+        public void removeEmployeeByLastName(string lastName)
+        {
+            SqlCommand removeCommand = new SqlCommand("RemoveEmployeeByLastName", apiConnection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
 
-            public void removeEmployeeByLastName(string lastName){
-                SqlCommand removeCommand = new SqlCommand("RemoveEmployeeByLastName", apiConnection){
-                    CommandType = CommandType.StoredProcedure
-                };
-                
-                removeCommand.Parameters.Add("@lastName", SqlDbType.VarChar).Value = lastName;
+            removeCommand.Parameters.Add("@lastName", SqlDbType.VarChar).Value = lastName;
 
-                removeCommand.ExecuteNonQuery();
-            }
+            removeCommand.ExecuteNonQuery();
+        }
 
-            public void removeEmployeeByLevel(string level){
-                SqlCommand removeCommand = new SqlCommand("RemoveEmployeeByLevel", apiConnection){
-                    CommandType = CommandType.StoredProcedure
-                };
-                
-                removeCommand.Parameters.Add("@level", SqlDbType.VarChar).Value = level;
+        public void removeEmployeeByLevel(string level)
+        {
+            SqlCommand removeCommand = new SqlCommand("RemoveEmployeeByLevel", apiConnection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
 
-                removeCommand.ExecuteNonQuery();
-            }
+            removeCommand.Parameters.Add("@level", SqlDbType.VarChar).Value = level;
 
-            public void removeAllEmployees(){
-                SqlCommand removeCommand = new SqlCommand("RemoveAllEmployees", apiConnection){
-                    CommandType = CommandType.StoredProcedure
-                };
-                
-                removeCommand.ExecuteNonQuery();
-            }
+            removeCommand.ExecuteNonQuery();
+        }
 
-            internal Employee getEmployeeById(int id){
-                SqlCommand getCommand = new SqlCommand("GetEmployeeById", apiConnection){
-                    CommandType = CommandType.StoredProcedure
-                };
+        public void removeAllEmployees()
+        {
+            SqlCommand removeCommand = new SqlCommand("RemoveAllEmployees", apiConnection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
 
-                getCommand.Parameters.Add("@id", SqlDbType.Int).Value = id;
+            removeCommand.ExecuteNonQuery();
+        }
 
-                using SqlDataReader result = getCommand.ExecuteReader();
+        internal Employee getEmployeeById(int id){
+            SqlCommand getCommand = new SqlCommand("GetEmployeeById", apiConnection){
+                CommandType = CommandType.StoredProcedure
+            };
+
+            getCommand.Parameters.Add("@id", SqlDbType.Int).Value = id;
+
+            using (SqlDataReader result = getCommand.ExecuteReader()) 
+            {
                 result.Read();
 
-                Employee employee = new Employee((int)result["id"],(SqlHierarchyId)result["level"], (string)result["firstName"], (string)result["lastName"], (string)result["position"], (int)result["salary"]);
+                Employee employee = new Employee((int)result["id"], (SqlHierarchyId)result["level"], (string)result["firstName"], (string)result["lastName"], (string)result["position"], (int)result["salary"]);
 
                 return employee;
+            };
+        }
+
+        internal Employee getEmployeeByLevel(string level)
+        {
+            SqlCommand getCommand = new SqlCommand("GetEmployeeByLevel", apiConnection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+
+            getCommand.Parameters.Add("@level", SqlDbType.VarChar).Value = level;
+
+            using (SqlDataReader result = getCommand.ExecuteReader())
+            {
+                result.Read();
+                Employee employee = new Employee((int)result["id"], (SqlHierarchyId)result["level"], (string)result["firstName"], (string)result["lastName"], (string)result["position"], (int)result["salary"]);
+                return employee;
             }
+        }
 
-            internal Employee getEmployeeByLevel(string level){
-                SqlCommand getCommand = new SqlCommand("GetEmployeeByLevel", apiConnection){
-                    CommandType = CommandType.StoredProcedure
-                };
+        internal Employee getEmployeeByFirstName(string firstName)
+        {
+            SqlCommand getCommand = new SqlCommand("GetEmployeeByFirstName", apiConnection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
 
-                getCommand.Parameters.Add("@level", SqlDbType.VarChar).Value = level;
+            getCommand.Parameters.Add("@firstName", SqlDbType.VarChar).Value = firstName;
 
-                using SqlDataReader result = getCommand.ExecuteReader();
+            using (SqlDataReader result = getCommand.ExecuteReader())
+            {
                 result.Read();
 
-                Employee employee = new Employee((int)result["id"],(SqlHierarchyId)result["level"], (string)result["firstName"], (string)result["lastName"], (string)result["position"], (int)result["salary"]);
+                Employee employee = new Employee((int)result["id"], (SqlHierarchyId)result["level"], (string)result["firstName"], (string)result["lastName"], (string)result["position"], (int)result["salary"]);
 
                 return employee;
-            }
+            };
+        }
 
-            internal Employee getEmployeeByFirstName(string firstName){
-                SqlCommand getCommand = new SqlCommand("GetEmployeeByFirstName", apiConnection){
-                    CommandType = CommandType.StoredProcedure
-                };
+        internal Employee getEmployeeByLastName(string lastName)
+        {
+            SqlCommand getCommand = new SqlCommand("GetEmployeeByLastName", apiConnection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
 
-                getCommand.Parameters.Add("@firstName", SqlDbType.VarChar).Value = firstName;
+            getCommand.Parameters.Add("@lastName", SqlDbType.VarChar).Value = lastName;
 
-                using SqlDataReader result = getCommand.ExecuteReader();
+            using (SqlDataReader result = getCommand.ExecuteReader())
+            {
                 result.Read();
 
-                Employee employee = new Employee((int)result["id"],(SqlHierarchyId)result["level"], (string)result["firstName"], (string)result["lastName"], (string)result["position"], (int)result["salary"]);
+                Employee employee = new Employee((int)result["id"], (SqlHierarchyId)result["level"], (string)result["firstName"], (string)result["lastName"], (string)result["position"], (int)result["salary"]);
 
                 return employee;
-            }
+            };
+        }
 
-            internal Employee getEmployeeByFirstName(string lastName){
-                SqlCommand getCommand = new SqlCommand("GetEmployeeByLastName", apiConnection){
-                    CommandType = CommandType.StoredProcedure
-                };
+        internal List<Employee> getEmployeeWithSubordinates(string level)
+        {
+            SqlCommand getCommand = new SqlCommand("GetEmployeeWithSubordinates", apiConnection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
 
-                getCommand.Parameters.Add("@lastName", SqlDbType.VarChar).Value = lastName;
+            getCommand.Parameters.Add("@level", SqlDbType.VarChar).Value = level;
 
-                using SqlDataReader result = getCommand.ExecuteReader();
-                result.Read();
-
-                Employee employee = new Employee((int)result["id"],(SqlHierarchyId)result["level"], (string)result["firstName"], (string)result["lastName"], (string)result["position"], (int)result["salary"]);
-
-                return employee;
-            }
-
-            internal List<Employee> getEmployeeWithChildren(string level){
-                SqlCommand getCommand = new SqlCommand("GetEmployeeWithSubordinates", apiConnection){
-                    CommandType = CommandType.StoredProcedure
-                };
-                
-                getCommand.Parameters.Add("@level", SqlDbType.VarChar).Value = level;
-
-                using SqlDataReader result = getCommand.ExecuteReader();
+            using (SqlDataReader result = getCommand.ExecuteReader())
+            {
                 List<Employee> employees = new List<Employee>();
 
-                while (result.Read()){
-                    employees.Add(new Employee((int)result["id"],(SqlHierarchyId)result["level"], (string)result["firstName"], (string)result["lastName"], (string)result["position"], (int)result["salary"]));
+                while (result.Read())
+                {
+                    employees.Add(new Employee((int)result["id"], (SqlHierarchyId)result["level"], (string)result["firstName"], (string)result["lastName"], (string)result["position"], (int)result["salary"]));
+                }
+
+                return employees;
+            };
+        }
+
+        internal List<Employee> getAllEmployees()
+        {
+            SqlCommand getCommand = new SqlCommand("GetAllEmployees", apiConnection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+
+            using (SqlDataReader result = getCommand.ExecuteReader())
+            {
+                List<Employee> employees = new List<Employee>();
+
+                while (result.Read())
+                {
+                    employees.Add(new Employee((int)result["id"], (SqlHierarchyId)result["level"], (string)result["firstName"], (string)result["lastName"], (string)result["position"], (int)result["salary"]));
                 }
 
                 return employees;
             }
+        }
 
-            internal List<Employee> getAllEmployees(){
-                SqlCommand getCommand = new SqlCommand("GetAllEmployees", apiConnection){
-                    CommandType = CommandType.StoredProcedure
-                };
-                
-                using SqlDataReader result = getCommand.ExecuteReader();
-                List<Employee> employees = new List<Employee>();
+        internal int getMaxSalary()
+        {
+            SqlCommand command = new SqlCommand("GetMaxSalary", apiConnection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
 
-                while (result.Read()){
-                    employees.Add(new Employee((int)result["id"],(SqlHierarchyId)result["level"], (string)result["firstName"], (string)result["lastName"], (string)result["position"], (int)result["salary"]));
-                }
-
-                return employees;
-            }
-
-            internal int getMaxSalary(){
-                SqlCommand command = new SqlCommand("GetMaxSalary", apiConnection){
-                    CommandType = CommandType.StoredProcedure
-                };
-
-                using SqlDataReader result = command.ExecuteReader();
+            using (SqlDataReader result = command.ExecuteReader())
+            {
                 result.Read();
 
                 int salary = (int)result["salary"];
                 return salary;
-            }
+            };
 
-            internal int getAverageSalary(){
-                SqlCommand command = new SqlCommand("GetAverageSalary", apiConnection){
-                    CommandType = CommandType.StoredProcedure
-                };
+        }
 
-                using SqlDataReader result = command.ExecuteReader();
+        internal int getAverageSalary()
+        {
+            SqlCommand command = new SqlCommand("GetAverageSalary", apiConnection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+
+            using (SqlDataReader result = command.ExecuteReader())
+            {
                 result.Read();
 
                 int salary = (int)result["salary"];
                 return salary;
-            }
+            };
+
         }
     }
 }
