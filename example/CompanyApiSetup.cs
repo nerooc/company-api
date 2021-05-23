@@ -18,7 +18,7 @@ namespace CMAPI
         {
             try
             {
-                cmp.addEmployee("/", "Tomasz", "Gajda", "CEO", 12500);
+                cmp.addEmployee("/", "Janusz", "Kielecki", "CEO", 12500);
                 cmp.addEmployee("/1/", "Krystyna", "Baranowska", "Kierownik marketingu", 11600);
                 cmp.addEmployee("/2/", "Kamil", "Jasiński", "Kierownik designu", 12300);
                 cmp.addEmployee("/3/", "Olaf", "Lewandowski", "Kierownik deweloperów", 11800);

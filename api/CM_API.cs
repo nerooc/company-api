@@ -6,32 +6,6 @@ using System.Collections.Generic;
 
 namespace CMAPI
 {
-    // Klasa Employee
-    public class Employee
-    {
-        public int id;
-        public SqlHierarchyId level;
-        public string firstName;
-        public string lastName;
-        public string position;
-        public int salary;
-
-        // Konstruktor klasy Employee
-        public Employee(int id, SqlHierarchyId level, string firstName, string lastName, string position, int salary)
-        {
-            this.id = id;
-            this.level = level;
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.position = position;
-            this.salary = salary;
-        }
-
-        public void print()
-        {
-            Console.WriteLine("#{0}: {1} - {2} {3} - {4} - {5}", this.id, this.level, this.firstName, this.lastName, this.position, this.salary);
-        }
-    }
     // Klasa opisująca firmę - zawierająca metody z API
     public class Company
     {
@@ -292,6 +266,33 @@ namespace CMAPI
                 return salary;
             };
 
+        }
+    }
+
+      // Klasa Employee
+    public class Employee
+    {
+        public int id;
+        public SqlHierarchyId level;
+        public string firstName;
+        public string lastName;
+        public string position;
+        public int salary;
+
+        // Konstruktor klasy Employee
+        public Employee(int id, SqlHierarchyId level, string firstName, string lastName, string position, int salary)
+        {
+            this.id = id;
+            this.level = level;
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.position = position;
+            this.salary = salary;
+        }
+
+        public void print()
+        {
+            Console.WriteLine("#{0}: {1} - {2} {3} - {4} - {5}", this.id, this.level, this.firstName, this.lastName, this.position, this.salary);
         }
     }
 }

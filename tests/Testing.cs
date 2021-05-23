@@ -25,7 +25,7 @@ namespace CMAPI_Testing
             cmp.addEmployee("/1/", "Krystyna", "Baranowska", "Kierownik marketingu", 11600);
             cmp.addEmployee("/2/", "Kamil", "Jasiński", "Kierownik designu", 12300);
             cmp.addEmployee("/3/", "Olaf", "Lewandowski", "Kierownik deweloperów", 11800);
-            cmp.addEmployee("/1/1/", "Aureliusz", "Kaźmierczak", "Analista marketingowy", 6300);
+            cmp.addEmployee("/1/1/", "Aureliusz", "Kaźmierczak", "Analityk marketingowy", 6300);
             cmp.addEmployee("/1/2/", "Cyprian", "Jasiński", "Konsultant marketingowy", 5900);
             cmp.addEmployee("/1/3/", "Joanna", "Dąbrowska", "Koordynator marketingowy", 6500);
             cmp.addEmployee("/2/1/", "Jakub", "Kowalczyk", "Projektant UX", 7300);
@@ -49,19 +49,6 @@ namespace CMAPI_Testing
 
             // Po dodaniu sprawdzam czy ilosc zwiekszyla sie o 1
             Assert.AreEqual(cmp.getAllEmployees().Count, 16);
-        }
-
-        [TestMethod]
-        public void testRemoveEmployeeById()
-        {
-            // Sprawdzam ilosc pracownikow przed usunięciem
-            Assert.AreEqual(cmp.getAllEmployees().Count, 15);
-
-            // Usuwam pracownika
-            cmp.removeEmployeeById(1);
-
-            // Po usunieciu sprawdzam czy ilosc zmniejszyla sie o 1
-            Assert.AreEqual(cmp.getAllEmployees().Count, 14);
         }
 
         [TestMethod]
@@ -117,20 +104,6 @@ namespace CMAPI_Testing
         }
 
         [TestMethod]
-        public void testGetEmployeeById()
-        {
-            // Pobieram pracownika z ID = 1
-            Employee emp = cmp.getEmployeeById(1);
-
-            // Sprawdzam czy jego dane się zgadzają
-            Assert.AreEqual(emp.firstName, "Tomasz");
-            Assert.AreEqual(emp.lastName, "Gajda");
-            Assert.AreEqual(emp.position, "CEO");
-            Assert.AreEqual(emp.level.ToString(), "/");
-            Assert.AreEqual(emp.salary, 12500);
-        }
-
-        [TestMethod]
         public void testGetEmployeeByFirstName()
         {
             // Pobieram pracownika o imieniu Tomasz
@@ -162,7 +135,7 @@ namespace CMAPI_Testing
         public void testGetEmployeeByLevel()
         {
             // Pobieram pracownika o poziomie "/"
-            Employee emp = cmp.getEmployeeByLastName("/");
+            Employee emp = cmp.getEmployeeByLevel("/");
 
             // Sprawdzam czy jego dane się zgadzają
             Assert.AreEqual(emp.firstName, "Tomasz");
@@ -221,3 +194,5 @@ namespace CMAPI_Testing
         }
     }
 }
+
+// Metody opierające się na ID danego elementu zostały pominięte jako że ich wartość jest dość "płynna"
