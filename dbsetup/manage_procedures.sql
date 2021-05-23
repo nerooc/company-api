@@ -82,7 +82,7 @@ GO
 CREATE PROCEDURE GetEmployeeByLevel
 @level as hierarchyid
 AS BEGIN
-    SELECT level as [level], firstName, lastName, position, salary FROM Employee
+    SELECT id, level as [level], firstName, lastName, position, salary FROM Employee
     WHERE level=@level
 END
 
@@ -92,7 +92,7 @@ GO
 CREATE PROCEDURE GetEmployeeByFirstName
 @firstName as varchar(1000)
 AS BEGIN
-    SELECT level, firstName as [firstName], lastName, position, salary FROM Employee
+    SELECT id, level, firstName as [firstName], lastName, position, salary FROM Employee
     WHERE firstName=@firstName
 END
 
@@ -102,7 +102,7 @@ GO
 CREATE PROCEDURE GetEmployeeByLastName
 @lastName as varchar(1000)
 AS BEGIN
-    SELECT level, firstName, lastName as [lastName], position, salary FROM Employee
+    SELECT id, level, firstName, lastName as [lastName], position, salary FROM Employee
     WHERE lastName=@lastName
 END
 
@@ -112,7 +112,7 @@ GO
 CREATE PROCEDURE GetEmployeeWithSubordinates
 @level as hierarchyid
 AS BEGIN
-    SELECT level as [level], firstName, lastName, position, salary FROM Employee
+    SELECT id, level as [level], firstName, lastName, position, salary FROM Employee
     WHERE level.IsDescendantOf(@level) = 1
 END
 
@@ -121,7 +121,7 @@ GO
 -- Procedura zwracająca wszystkich pracowników
 CREATE PROCEDURE GetAllEmployees
 AS BEGIN
-    SELECT level as [level], firstName, lastName, position, salary FROM Employee
+    SELECT id, level as [level], firstName, lastName, position, salary FROM Employee
 END
 
 GO
@@ -130,7 +130,7 @@ GO
 CREATE PROCEDURE GetMaxSalary
 AS BEGIN
     SELECT MAX(salary) as salary 
-    FROM GetAllEmployees
+    FROM Employee
 END
 
 GO
@@ -139,7 +139,54 @@ GO
 CREATE PROCEDURE GetAverageSalary
 AS BEGIN
     SELECT AVG(salary) as salary 
-    FROM GetAllEmployees
+    FROM Employee
 END
 
+GO
+
+-- USUWANIE PROCEDUR
+
+DROP TABLE Employees
+GO
+
+DROP PROCEDURE AddEmployee
+GO
+
+DROP PROCEDURE RemoveEmployeeById
+GO
+
+DROP PROCEDURE RemoveEmployeeByFirstName
+GO
+
+DROP PROCEDURE RemoveEmployeeByLastName
+GO
+
+DROP PROCEDURE RemoveEmployeeByLevel
+GO
+
+DROP PROCEDURE RemoveAllEmployees
+GO
+
+DROP PROCEDURE GetEmployeeById
+GO
+
+DROP PROCEDURE GetEmployeeByLevel
+GO
+
+DROP PROCEDURE GetEmployeeByFirstName
+GO
+
+DROP PROCEDURE GetEmployeeByLastName
+GO
+
+DROP PROCEDURE GetEmployeeWithSubordinates
+GO
+
+DROP PROCEDURE GetAllEmployees
+GO
+
+DROP PROCEDURE GetMaxSalary
+GO
+
+DROP PROCEDURE GetAverageSalary
 GO

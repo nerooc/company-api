@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using Microsoft.SqlServer.Types;
@@ -6,32 +6,6 @@ using System.Collections.Generic;
 
 namespace CMAPI
 {
-    // Klasa Employee
-    public class Employee
-    {
-        public int id;
-        public SqlHierarchyId level;
-        public string firstName;
-        public string lastName;
-        public string position;
-        public int salary;
-
-        // Konstruktor klasy Employee
-        public Employee(int id, SqlHierarchyId level, string firstName, string lastName, string position, int salary)
-        {
-            this.id = id;
-            this.level = level;
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.position = position;
-            this.salary = salary;
-        }
-
-        public void print()
-        {
-            Console.WriteLine("#{0}: {1} - {2} {3} - {4} - {5}", this.id, this.level, this.firstName, this.lastName, this.position, this.salary);
-        }
-    }
     // Klasa opisująca firmę - zawierająca metody z API
     public class Company
     {
@@ -118,7 +92,7 @@ namespace CMAPI
             removeCommand.ExecuteNonQuery();
         }
 
-        internal Employee getEmployeeById(int id)
+        public Employee getEmployeeById(int id)
         {
             SqlCommand getCommand = new SqlCommand("GetEmployeeById", apiConnection)
             {
@@ -137,16 +111,16 @@ namespace CMAPI
                     Employee employee = new Employee((int)result["id"], (SqlHierarchyId)result["level"], (string)result["firstName"], (string)result["lastName"], (string)result["position"], (int)result["salary"]);
 
                     return employee;
-                } 
+                }
                 catch (Exception e)
                 {
                     return null;
                 }
-                
+
             };
         }
 
-        internal Employee getEmployeeByLevel(string level)
+        public Employee getEmployeeByLevel(string level)
         {
             SqlCommand getCommand = new SqlCommand("GetEmployeeByLevel", apiConnection)
             {
@@ -160,19 +134,19 @@ namespace CMAPI
                 try
                 {
                     result.Read();
-                    
+
                     Employee employee = new Employee((int)result["id"], (SqlHierarchyId)result["level"], (string)result["firstName"], (string)result["lastName"], (string)result["position"], (int)result["salary"]);
-                    
+
                     return employee;
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     return null;
                 }
             }
         }
 
-        internal Employee getEmployeeByFirstName(string firstName)
+        public Employee getEmployeeByFirstName(string firstName)
         {
             SqlCommand getCommand = new SqlCommand("GetEmployeeByFirstName", apiConnection)
             {
@@ -195,11 +169,11 @@ namespace CMAPI
                 {
                     return null;
                 }
-                
+
             };
         }
 
-        internal Employee getEmployeeByLastName(string lastName)
+        public Employee getEmployeeByLastName(string lastName)
         {
             SqlCommand getCommand = new SqlCommand("GetEmployeeByLastName", apiConnection)
             {
@@ -218,7 +192,7 @@ namespace CMAPI
             };
         }
 
-        internal List<Employee> getEmployeeWithSubordinates(string level)
+        public List<Employee> getEmployeeWithSubordinates(string level)
         {
             SqlCommand getCommand = new SqlCommand("GetEmployeeWithSubordinates", apiConnection)
             {
@@ -240,7 +214,7 @@ namespace CMAPI
             };
         }
 
-        internal List<Employee> getAllEmployees()
+        public List<Employee> getAllEmployees()
         {
             SqlCommand getCommand = new SqlCommand("GetAllEmployees", apiConnection)
             {
@@ -260,7 +234,7 @@ namespace CMAPI
             }
         }
 
-        internal int getMaxSalary()
+        public int getMaxSalary()
         {
             SqlCommand command = new SqlCommand("GetMaxSalary", apiConnection)
             {
@@ -277,7 +251,7 @@ namespace CMAPI
 
         }
 
-        internal int getAverageSalary()
+        public int getAverageSalary()
         {
             SqlCommand command = new SqlCommand("GetAverageSalary", apiConnection)
             {
