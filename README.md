@@ -1,12 +1,14 @@
-- logo CMAPI
+<br/>
 
-### Company Management API (w oparciu o HierarchyID)
 
-## Przetwarzanie danych hierarchicznych
-
-### Tomasz Gajda
+<img src="https://github.com/nerooc/company-api/blob/main/docs/cmAPI-logo.png" height="60" width="240" />
 
 <br/>
+
+### Company Management API (w oparciu o HierarchyID)
+# Przetwarzanie danych hierarchicznych
+
+
 
 - [1. Założenia projektu](#1-założenia-projektu)
 - [2. Krótki wstęp teoretyczny](#2-krótki-wstęp-teoretyczny)
@@ -17,8 +19,6 @@
 - [7. Podsumowanie](#7-podsumowanie)
 - [8. Literatura](#8-literatura)
 - [9. Kod źródłowy](#9-kod-źródłowy)
-
-<br/>
 
 ## 1. Założenia projektu
 
@@ -46,6 +46,8 @@ Oprócz samego **API**, w projekcie uwzględniłem również testy jednostkowe, 
 ## 3.1 Tabela Employee
 
 Przechowuje dane na temat pracowników
+
+![alt text](https://github.com/nerooc/company-api/blob/main/docs/employee_table.png)
 
 ## 3.2 Metody klasy Company
 
@@ -202,19 +204,19 @@ Udostępniają manipulację danymi pracowników
 
 Wszystkie funkcje są dostępne z poziomu interaktywnej konsolowej aplikacji **(demo)**, przyjmującej input od użytkownika, który decyduje co chce zrobić. Jest to przykład implementacji API w działającej aplikacji - funkcje można wdrożyć również do istniejącego wcześniej systemu.
 
-- obraz konsoli
+![console_app](https://github.com/nerooc/company-api/blob/main/docs/console_app1.png)
 
 ## 5. Przykładowe dane
 
 W ramach aplikacji demonstrującej działanie **CMAPI**, możemy do bazy dodać gotowe przykładowe dane - są to testowe dane firmy, która korzysta z **hierarchicznej** struktury danych. **Zbieżność imion i nazwisk jest przypadkowa.**
 
-- obraz danych
+![example_data](https://github.com/nerooc/company-api/blob/main/docs/test_data_tree.png)
 
 ## 6. Prezentacja testów jednostkowych
 
 Do testowania **CMAPI** wykorzystałem narzędzia do testowania udostępnione przez **Visual Studio**. W projekcie testowym, na przykładowych danych przetestowane zostały wszystkie metody wykorzystane w API, poniżej przedstawiam wyniki przeprowadzonych testów.
 
-- obraz testów
+![unit_tests](https://github.com/nerooc/company-api/blob/main/docs/api_testing_results.png)
 
 ## 7. Podsumowanie
 
@@ -226,13 +228,10 @@ Z drugiej strony, wsparcie C# dla hierarchyid nie jest pełne - przykładem moż
 
 Do stworzenia projektu wykorzystałem głównie **oficjalną dokumentację Microsoftu**, oraz pomniejsze strony służące jako poradniki do obsługi typu **hierarchyid**:
 
-- https://codingsight.com
-- how-to-use-sql-server-hierarchyid-through-easy-examples/
-- https://docs.microsoft.com/en-us/sql/t-sql/data-types
-- hierarchyid-data-type-method-reference?view=sql-server-ver15
+- https://codingsight.com/how-to-use-sql-server-hierarchyid-through-easy-examples/
+- https://docs.microsoft.com/en-us/sql/t-sql/data-types/hierarchyid-data-type-method-reference?view=sql-server-ver15
 - https://docs.microsoft.com/en-us/dotnet/csharp/
-- https://docs.microsoft.com/en-us/sql/relational-databases/tables
-- tutorial-using-the-hierarchyid-data-type?view=sql-server-ver15
+- https://docs.microsoft.com/en-us/sql/relational-databases/tables/tutorial-using-the-hierarchyid-data-type?view=sql-server-ver15
 - https://www.sqlshack.com/use-hierarchyid-sql-server/
 
 ## 9. Kod źródłowy
