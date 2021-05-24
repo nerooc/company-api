@@ -21,7 +21,7 @@ namespace CMAPI_Testing
             cmp.removeAllEmployees();
 
             // Dodaję przykladowe dane do bazy                
-            cmp.addEmployee("/", "Tomasz", "Gajda", "CEO", 12500);
+            cmp.addEmployee("/", "Janusz", "Kielecki", "CEO", 12500);
             cmp.addEmployee("/1/", "Krystyna", "Baranowska", "Kierownik marketingu", 11600);
             cmp.addEmployee("/2/", "Kamil", "Jasiński", "Kierownik designu", 12300);
             cmp.addEmployee("/3/", "Olaf", "Lewandowski", "Kierownik deweloperów", 11800);
@@ -58,7 +58,7 @@ namespace CMAPI_Testing
             Assert.AreEqual(cmp.getAllEmployees().Count, 15);
 
             // Usuwam pracownika
-            cmp.removeEmployeeByFirstName("Tomasz");
+            cmp.removeEmployeeByFirstName("Janusz");
 
             // Po usunieciu sprawdzam czy ilosc zmniejszyla sie o 1
             Assert.AreEqual(cmp.getAllEmployees().Count, 14);
@@ -71,7 +71,7 @@ namespace CMAPI_Testing
             Assert.AreEqual(cmp.getAllEmployees().Count, 15);
 
             // Usuwam pracownika
-            cmp.removeEmployeeByLastName("Gajda");
+            cmp.removeEmployeeByLastName("Kielecki");
 
             // Po usunieciu sprawdzam czy ilosc zmniejszyla sie o 1
             Assert.AreEqual(cmp.getAllEmployees().Count, 14);
@@ -106,12 +106,12 @@ namespace CMAPI_Testing
         [TestMethod]
         public void testGetEmployeeByFirstName()
         {
-            // Pobieram pracownika o imieniu Tomasz
-            Employee emp = cmp.getEmployeeByFirstName("Tomasz");
+            // Pobieram pracownika o imieniu Janusz
+            Employee emp = cmp.getEmployeeByFirstName("Janusz");
 
             // Sprawdzam czy jego dane się zgadzają
-            Assert.AreEqual(emp.firstName, "Tomasz");
-            Assert.AreEqual(emp.lastName, "Gajda");
+            Assert.AreEqual(emp.firstName, "Janusz");
+            Assert.AreEqual(emp.lastName, "Kielecki");
             Assert.AreEqual(emp.position, "CEO");
             Assert.AreEqual(emp.level.ToString(), "/");
             Assert.AreEqual(emp.salary, 12500);
@@ -120,12 +120,12 @@ namespace CMAPI_Testing
         [TestMethod]
         public void testGetEmployeeByLastName()
         {
-            // Pobieram pracownika o nazwisku Gajda
-            Employee emp = cmp.getEmployeeByLastName("Gajda");
+            // Pobieram pracownika o nazwisku Kielecki
+            Employee emp = cmp.getEmployeeByLastName("Kielecki");
 
             // Sprawdzam czy jego dane się zgadzają
-            Assert.AreEqual(emp.firstName, "Tomasz");
-            Assert.AreEqual(emp.lastName, "Gajda");
+            Assert.AreEqual(emp.firstName, "Janusz");
+            Assert.AreEqual(emp.lastName, "Kielecki");
             Assert.AreEqual(emp.position, "CEO");
             Assert.AreEqual(emp.level.ToString(), "/");
             Assert.AreEqual(emp.salary, 12500);
@@ -138,8 +138,8 @@ namespace CMAPI_Testing
             Employee emp = cmp.getEmployeeByLevel("/");
 
             // Sprawdzam czy jego dane się zgadzają
-            Assert.AreEqual(emp.firstName, "Tomasz");
-            Assert.AreEqual(emp.lastName, "Gajda");
+            Assert.AreEqual(emp.firstName, "Janusz");
+            Assert.AreEqual(emp.lastName, "Kielecki");
             Assert.AreEqual(emp.position, "CEO");
             Assert.AreEqual(emp.level.ToString(), "/");
             Assert.AreEqual(emp.salary, 12500);
