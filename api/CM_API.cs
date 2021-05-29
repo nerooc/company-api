@@ -18,6 +18,7 @@ namespace CMAPI
             apiConnection.Open();
         }
 
+        // Dodawanie pracownika
         public void addEmployee(string level, string firstName, string lastName, string position, int salary)
         {
             SqlCommand addCommand = new SqlCommand("AddEmployee", apiConnection)
@@ -34,6 +35,7 @@ namespace CMAPI
             addCommand.ExecuteNonQuery();
         }
 
+        // Usuwanie pracownika po ID
         public void removeEmployeeById(int id)
         {
             SqlCommand removeCommand = new SqlCommand("RemoveEmployeeById", apiConnection)
@@ -46,6 +48,7 @@ namespace CMAPI
             removeCommand.ExecuteNonQuery();
         }
 
+        // Usuwanie pracownika po imieniu
         public void removeEmployeeByFirstName(string firstName)
         {
             SqlCommand removeCommand = new SqlCommand("RemoveEmployeeByFirstName", apiConnection)
@@ -58,6 +61,7 @@ namespace CMAPI
             removeCommand.ExecuteNonQuery();
         }
 
+        // Usuwanie pracownika po nazwisku
         public void removeEmployeeByLastName(string lastName)
         {
             SqlCommand removeCommand = new SqlCommand("RemoveEmployeeByLastName", apiConnection)
@@ -70,6 +74,7 @@ namespace CMAPI
             removeCommand.ExecuteNonQuery();
         }
 
+        // Usuwanie pracownika po hierarchii/poziomie
         public void removeEmployeeByLevel(string level)
         {
             SqlCommand removeCommand = new SqlCommand("RemoveEmployeeByLevel", apiConnection)
@@ -82,6 +87,7 @@ namespace CMAPI
             removeCommand.ExecuteNonQuery();
         }
 
+        // Usuwanie wszystkich pracowników
         public void removeAllEmployees()
         {
             SqlCommand removeCommand = new SqlCommand("RemoveAllEmployees", apiConnection)
@@ -92,6 +98,7 @@ namespace CMAPI
             removeCommand.ExecuteNonQuery();
         }
 
+        // Zwróc pracownika po ID
         internal Employee getEmployeeById(int id)
         {
             SqlCommand getCommand = new SqlCommand("GetEmployeeById", apiConnection)
@@ -120,6 +127,7 @@ namespace CMAPI
             };
         }
 
+        // Zwróc pracownika po poziomie/hierarchii
         internal Employee getEmployeeByLevel(string level)
         {
             SqlCommand getCommand = new SqlCommand("GetEmployeeByLevel", apiConnection)
@@ -146,6 +154,7 @@ namespace CMAPI
             }
         }
 
+        // Zwróc pracownika po imieniu
         internal Employee getEmployeeByFirstName(string firstName)
         {
             SqlCommand getCommand = new SqlCommand("GetEmployeeByFirstName", apiConnection)
@@ -173,6 +182,7 @@ namespace CMAPI
             };
         }
 
+        // Zwróć pracownika po nazwisku
         internal Employee getEmployeeByLastName(string lastName)
         {
             SqlCommand getCommand = new SqlCommand("GetEmployeeByLastName", apiConnection)
@@ -192,6 +202,7 @@ namespace CMAPI
             };
         }
 
+        // Zwróć pracownika wraz z jego podwładnymi
         internal List<Employee> getEmployeeWithSubordinates(string level)
         {
             SqlCommand getCommand = new SqlCommand("GetEmployeeWithSubordinates", apiConnection)
@@ -214,6 +225,7 @@ namespace CMAPI
             };
         }
 
+        // Zwróć wszystkich pracowników
         internal List<Employee> getAllEmployees()
         {
             SqlCommand getCommand = new SqlCommand("GetAllEmployees", apiConnection)
@@ -234,6 +246,7 @@ namespace CMAPI
             }
         }
 
+        // Zwróć maksymalną wypłatę
         internal int getMaxSalary()
         {
             SqlCommand command = new SqlCommand("GetMaxSalary", apiConnection)
@@ -251,6 +264,7 @@ namespace CMAPI
 
         }
 
+        // Zwróć średnią wypłatę
         internal int getAverageSalary()
         {
             SqlCommand command = new SqlCommand("GetAverageSalary", apiConnection)
@@ -290,6 +304,7 @@ namespace CMAPI
             this.salary = salary;
         }
 
+        // Funkcja wypisująca 
         public void print()
         {
             Console.WriteLine("#{0}: {1} - {2} {3} - {4} - {5}", this.id, this.level, this.firstName, this.lastName, this.position, this.salary);
